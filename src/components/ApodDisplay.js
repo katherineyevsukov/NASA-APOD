@@ -97,7 +97,7 @@ export default function Apod() {
                <h3>{now.date}</h3>
                <h2>"{now.title}"</h2>
                <p className="description">{now.explanation}</p>
-               <p className='copyright'>Copyright: {now.copyright}</p>
+               {now.copyright && <p className='copyright'>Copyright: {now.copyright}</p>}
             </div>
             <div className='image-container'>
                 <img src={now.url} alt='apod for today'></img>
