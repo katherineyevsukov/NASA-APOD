@@ -20,6 +20,8 @@ const DateSelectorWrapper = styled.div`
     border-radius: 5px;
   }
 
+
+@media (min-width: 1200px){
   label {
     animation-duration: 3s;
     animation-name: slidein;
@@ -33,9 +35,10 @@ const DateSelectorWrapper = styled.div`
     }
 
     to {
-      margin-left: 82%;
+      margin-left: 85%;
       width: 100%;
     }
+}
   }
 `;
 

@@ -39,7 +39,6 @@ const StyledApodDiv = styled.div`
     margin: 0 auto;
     /* border-radius: 10px; */
   }
-  
 
   .description {
     text-indent: 30px;
