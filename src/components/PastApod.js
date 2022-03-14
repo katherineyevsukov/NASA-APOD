@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { BASE_URL, API_KEY } from "../constants/index";
+import { BASE_URL, API_KEY } from "./../config/index";
 import { StyledApodDiv } from "./ApodDisplay";
 
 export default function PastApod(props) {
