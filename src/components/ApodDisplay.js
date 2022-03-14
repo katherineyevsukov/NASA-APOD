@@ -4,6 +4,33 @@ import { BASE_URL, API_KEY } from "./../config";
 
 import styled from "styled-components";
 
+const LoadingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 5%;
+  p {
+    font-size: 3rem;
+  }
+  .spinner {
+    border: 16px solid #675d73;
+    border-top: 16px solid #4d4459;
+    border-radius: 50%;
+    width: 1vh;
+    height: 1vh;
+    animation: spin 2s linear infinite;
+    margin-top: 2%;
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+`;
+
 const StyledApodDiv = styled.div`
   display: flex;
   max-height: 60vh;
@@ -35,7 +62,8 @@ const StyledApodDiv = styled.div`
     text-align: center;
   }
 
-  img, iframe{
+  img,
+  iframe {
     object-fit: contain;
     margin: 0 auto;
     /* border-radius: 10px; */
@@ -70,12 +98,15 @@ const StyledApodDiv = styled.div`
 `;
 
 export default function Apod() {
+  const [loading, setLoading] = useState(false);
   const [now, setNow] = useState({});
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${BASE_URL}?api_key=${API_KEY}`)
       .then((res) => {
+        setLoading(false);
         setNow(res.data);
       })
       .catch((err) => {
@@ -84,24 +115,33 @@ export default function Apod() {
   }, []);
 
   return (
-    <StyledApodDiv>
-      <div className="description-container">
-        <h3>{now.date}</h3>
-        <h2>"{now.title}"</h2>
-        <p className="description">{now.explanation}</p>
-        {now.copyright && (
-          <p className="copyright">Copyright: {now.copyright}</p>
-        )}
-      </div>
-      <div className="image-container">
-        {now.media_type === "video" ? (
-          <iframe title="apod video" src={now.url}></iframe>
-        ) : (
-          <img src={now.url} alt="Apod"></img>
-        )}
-      </div>
-    </StyledApodDiv>
+    <>
+      {loading ? (
+        <LoadingDiv>
+          <p>Loading...</p>
+          <div className="spinner"></div>
+        </LoadingDiv>
+      ) : (
+        <StyledApodDiv>
+          <div className="description-container">
+            <h3>{now.date}</h3>
+            <h2>"{now.title}"</h2>
+            <p className="description">{now.explanation}</p>
+            {now.copyright && (
+              <p className="copyright">Copyright: {now.copyright}</p>
+            )}
+          </div>
+          <div className="image-container">
+            {now.media_type === "video" ? (
+              <iframe title="apod video" src={now.url}></iframe>
+            ) : (
+              <img src={now.url} alt="Apod"></img>
+            )}
+          </div>
+        </StyledApodDiv>
+      )}
+    </>
   );
 }
 
-export { StyledApodDiv };
+export { StyledApodDiv, LoadingDiv };
