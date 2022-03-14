@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { BASE_URL, API_KEY } from "../constants/index";
+import { BASE_URL, API_KEY } from "./../config";
+
 import styled from "styled-components";
 
 const StyledApodDiv = styled.div`
